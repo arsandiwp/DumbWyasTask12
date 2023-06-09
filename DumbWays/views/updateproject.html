@@ -13,7 +13,7 @@
    <div class="form-input my-5">
       <div class="container-lg">
         <h1 class="text-center my-5">UPDATE MY PROJECT</h1>
-        <form class="fw-medium w-80 mx-auto" action="" method="">
+        <form class="fw-medium w-80 mx-auto" action="/updateproject/{{.Blog.Id}}" method="post">
             <div class="mb-4">
               <label for="project-name" class="form-label ">Project Name</label>
               <input type="text" name="project-name" class="form-control focus-ring focus-ring-secondary text-decoration-none border rounded-2" id="project-name" value="{{.Blog.Title}}">
@@ -22,11 +22,11 @@
                 <div class="row">
                     <div class="col">
                         <label for="start-date" class="form-label">Start Date</label>
-                        <input type="date" class="form-control focus-ring focus-ring-secondary text-decoration-none border rounded-2" id="start-date" name="start-date" value="{{.Blog.StartDate}}">
+                        <input type="date" class="form-control focus-ring focus-ring-secondary text-decoration-none border rounded-2" id="start-date" name="start-date" value="{{.Blog.StartDate}}" onfocus="(this.type='date')">
                     </div>
                     <div class="col">
                         <label for="end-date" class="form-label">End Date</label>
-                        <input type="date" class="form-control focus-ring focus-ring-secondary text-decoration-none border rounded-2" id="end-date" name="end-date" value="{{.Blog.EndDate}}">
+                        <input type="date" class="form-control focus-ring focus-ring-secondary text-decoration-none border rounded-2" id="end-date" name="end-date" value="{{.Blog.EndDate}}" onfocus="(this.type='date')">
                     </div>
                 </div>
             </div>
@@ -39,13 +39,13 @@
                 <div class="row">
                     <div class="col">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="javascript">
+                            <input class="form-check-input" type="checkbox" value="javascript" id="javascript" name="javascript" {{if .Blog.JavaScript}}cheked{{end}}>
                             <label class="form-check-label" for="javascript">
                               JavaScript
                             </label>
                           </div>
                           <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="html">
+                            <input class="form-check-input" type="checkbox" value="html" id="html" name="html" {{if .Blog.Html}}cheked{{end}}>
                             <label class="form-check-label" for="html">
                               HTML
                             </label>
@@ -53,13 +53,13 @@
                     </div>
                     <div class="col-10">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="php">
+                            <input class="form-check-input" type="checkbox" value="php" id="php" name="php" {{if .Blog.Php}}cheked{{end}}>
                             <label class="form-check-label" for="php">
                               PHP
                             </label>
                           </div>
                           <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="react">
+                            <input class="form-check-input" type="checkbox" value="react" id="react" name="react" {{if .Blog.React}}cheked{{end}}>
                             <label class="form-check-label" for="react ">
                               React
                             </label>
@@ -71,9 +71,8 @@
                 <label for="upload-image" class="form-label">Upload Image</label>
                 <input class="form-control focus-ring focus-ring-secondary text-decoration-none border rounded-2" type="file" id="upload-image">
             </div>
-            <form action="/updateproject/{{.Blog.index}}" method="post">
+
                <button type="submit" class="btn btn-dark fw-medium rounded-pill px-5">Submit</button>
-            </form>
 
         </form>
       </div>

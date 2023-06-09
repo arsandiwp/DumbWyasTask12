@@ -17,9 +17,14 @@ type Blog struct {
 	Title       string
 	StartDate   string
 	EndDate     string
+	Duration    string
 	Description string
-	Author      string
-	PostDate    string
+	JavaScript  bool
+	Html        bool
+	Php         bool
+	React       bool
+	// Author      string
+	// PostDate    string
 }
 
 // data - data yang ditampung
@@ -28,17 +33,27 @@ var dataBlog = []Blog{
 		Title:       "Halo Guys",
 		StartDate:   "07/06/2023",
 		EndDate:     "10/06/2023",
+		Duration:    "3 Bulan",
 		Description: "Mari Makan Guys",
-		Author:      "Power Ranger",
-		PostDate:    "07/06/2023",
+		JavaScript:  true,
+		Html:        true,
+		Php:         true,
+		React:       true,
+		// Author:      "Power Ranger",
+		// PostDate:    "07/06/2023",
 	},
 	{
 		Title:       "Halo Ultarmen",
 		StartDate:   "07/06/2023",
 		EndDate:     "10/06/2023",
+		Duration:    "3 Bulan",
 		Description: "Mari Makan Guys",
-		Author:      "Ultaramen",
-		PostDate:    "07/06/2023",
+		JavaScript:  true,
+		Html:        true,
+		Php:         true,
+		React:       true,
+		// Author:      "Ultaramen",
+		// PostDate:    "07/06/2023",
 	},
 }
 
@@ -47,23 +62,23 @@ func main() {
 
 	e.Static("/public", "public")
 
-	e.GET("/hello", hellowordl)
+	// e.GET("/hello", hellowordl)
 	e.GET("/", home)
 	e.GET("/addproject", addProject)
-	e.POST("/addblog", addBlog)
-	e.POST("/deleteblog/:id", deleteBlog)
-
 	e.GET("/contact", contact)
 	e.GET("detailproject/:id", detailProject)
 	e.GET("updateproject/:id", updateProject)
+
+	e.POST("/addblog", addBlog)
+	e.POST("/deleteblog/:id", deleteBlog)
 	e.POST("/updateproject/:id", updateProjectDone)
 
 	e.Logger.Fatal(e.Start("localhost:5000"))
 }
 
-func hellowordl(c echo.Context) error {
-	return c.String(http.StatusOK, "Hello Wordl")
-}
+// func hellowordl(c echo.Context) error {
+// 	return c.String(http.StatusOK, "Hello Wordl")
+// }
 
 func home(c echo.Context) error {
 	var tmpl, err = template.ParseFiles("views/index.html")
@@ -121,9 +136,14 @@ func detailProject(c echo.Context) error {
 				Title:       data.Title,
 				StartDate:   data.StartDate,
 				EndDate:     data.EndDate,
+				Duration:    data.Duration,
 				Description: data.Description,
-				Author:      data.Author,
-				PostDate:    data.PostDate,
+				JavaScript:  data.JavaScript,
+				Html:        data.Html,
+				Php:         data.Php,
+				React:       data.React,
+				// Author:      data.Author,
+				// PostDate:    data.PostDate,
 			}
 		}
 	}
@@ -145,20 +165,35 @@ func addBlog(c echo.Context) error {
 	title := c.FormValue("project-name")
 	startDate := c.FormValue("start-date")
 	endDate := c.FormValue("end-date")
+	duration := hitungDuration(startDate, endDate)
 	description := c.FormValue("description")
+	javascript := c.FormValue("javascript")
+	html := c.FormValue("html")
+	php := c.FormValue("php")
+	react := c.FormValue("react")
 
 	println("Title : " + title)
 	println("Star Date : " + startDate)
 	println("End Date : " + endDate)
+	println("Duration : " + duration)
 	println("Description : " + description)
+	println("Technologies : " + javascript)
+	println("Technologies : " + html)
+	println("Technologies : " + php)
+	println("Technologies : " + react)
 
 	var newBlog = Blog{
 		Title:       title,
 		StartDate:   startDate,
 		EndDate:     endDate,
+		Duration:    duration,
 		Description: description,
-		Author:      "Arsandi Wira P",
-		PostDate:    time.Now().String(),
+		JavaScript:  (javascript == "javascript"),
+		Html:        (html == "html"),
+		Php:         (php == "php"),
+		React:       (react == "react"),
+		// Author:      "Arsandi Wira P",
+		// PostDate:    time.Now().String(),
 	}
 
 	// append bertugas untuk menambahakan data newBlog ke dalam slice dataBlog
@@ -194,9 +229,14 @@ func updateProject(c echo.Context) error {
 				Title:       data.Title,
 				StartDate:   data.StartDate,
 				EndDate:     data.EndDate,
+				Duration:    data.Duration,
 				Description: data.Description,
-				Author:      data.Author,
-				PostDate:    data.PostDate,
+				JavaScript:  data.JavaScript,
+				Html:        data.Html,
+				Php:         data.Php,
+				React:       data.React,
+				// Author:      data.Author,
+				// PostDate:    data.PostDate,
 			}
 		}
 	}
@@ -222,12 +262,77 @@ func updateProjectDone(c echo.Context) error {
 	title := c.FormValue("project-name")
 	startDate := c.FormValue("start-date")
 	endDate := c.FormValue("end-date")
+	duration := hitungDuration(startDate, endDate)
 	description := c.FormValue("description")
+	javascript := c.FormValue("javascript")
+	html := c.FormValue("html")
+	php := c.FormValue("php")
+	react := c.FormValue("react")
 
-	dataBlog[id].Title = title
-	dataBlog[id].Description = description
-	dataBlog[id].StartDate = startDate
-	dataBlog[id].EndDate = endDate
+	println("Title : " + title)
+	println("Star Date : " + startDate)
+	println("End Date : " + endDate)
+	println("Duration : " + duration)
+	println("Description : " + description)
+	println("Technologies : " + javascript)
+	println("Technologies : " + html)
+	println("Technologies : " + php)
+	println("Technologies : " + react)
+
+	var updateProject = Blog{
+		Title:       title,
+		StartDate:   startDate,
+		EndDate:     endDate,
+		Duration:    duration,
+		Description: description,
+		JavaScript:  (javascript == "javascript"),
+		Html:        (html == "html"),
+		Php:         (php == "php"),
+		React:       (react == "react"),
+		// Author:      "Arsandi Wira P",
+		// PostDate:    time.Now().String(),
+	}
+
+	dataBlog[id] = updateProject
 
 	return c.Redirect(http.StatusMovedPermanently, "/")
+}
+
+func hitungDuration(StartDate, EndDate string) string {
+	startTime, _ := time.Parse("2006-01-02", StartDate)
+	endTime, _ := time.Parse("2006-01-02", EndDate)
+
+	durationTime := int(endTime.Sub(startTime).Hours())
+	durationDays := durationTime / 24
+	durationWeeks := durationDays / 7
+	durationMonths := durationWeeks / 4
+	durationYears := durationMonths / 12
+
+	var duration string
+
+	if durationYears > 1 {
+		duration = strconv.Itoa(durationYears) + " Tahun"
+	} else if durationYears > 0 {
+		duration = strconv.Itoa(durationYears) + " Tahun"
+	} else {
+		if durationMonths > 1 {
+			duration = strconv.Itoa(durationMonths) + " Bulan"
+		} else if durationMonths > 0 {
+			duration = strconv.Itoa(durationMonths) + " Bulan"
+		} else {
+			if durationWeeks > 1 {
+				duration = strconv.Itoa(durationWeeks) + " Minggu"
+			} else if durationWeeks > 0 {
+				duration = strconv.Itoa(durationWeeks) + " Minggu"
+			} else {
+				if durationDays > 1 {
+					duration = strconv.Itoa(durationDays) + " Hari"
+				} else {
+					duration = strconv.Itoa(durationDays) + " Hari"
+				}
+			}
+		}
+	}
+
+	return duration
 }
