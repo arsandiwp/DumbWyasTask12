@@ -10,7 +10,7 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-// nama dari struct nya adalah blog
+// nama struct adalah Blog
 // yang membangung dari object
 type Blog struct {
 	Id          int
@@ -23,37 +23,31 @@ type Blog struct {
 	Html        bool
 	Php         bool
 	React       bool
-	// Author      string
-	// PostDate    string
 }
 
 // data - data yang ditampung
 var dataBlog = []Blog{
 	{
-		Title:       "Halo Guys",
+		Title:       "Dragoon Nest",
 		StartDate:   "07/06/2023",
 		EndDate:     "10/06/2023",
-		Duration:    "3 Bulan",
-		Description: "Mari Makan Guys",
+		Duration:    "3 Hari",
+		Description: "Petani Gold di Dragon Nest Return",
 		JavaScript:  true,
 		Html:        true,
-		Php:         true,
-		React:       true,
-		// Author:      "Power Ranger",
-		// PostDate:    "07/06/2023",
+		Php:         false,
+		React:       false,
 	},
 	{
-		Title:       "Halo Ultarmen",
+		Title:       "Kimetsu No Yaiba",
 		StartDate:   "07/06/2023",
 		EndDate:     "10/06/2023",
-		Duration:    "3 Bulan",
-		Description: "Mari Makan Guys",
+		Duration:    "3 Hari",
+		Description: "Macam - macam pilar di Dragon Slayer",
 		JavaScript:  true,
 		Html:        true,
 		Php:         true,
 		React:       true,
-		// Author:      "Ultaramen",
-		// PostDate:    "07/06/2023",
 	},
 }
 
@@ -62,23 +56,20 @@ func main() {
 
 	e.Static("/public", "public")
 
-	// e.GET("/hello", hellowordl)
+	// mengambil data
 	e.GET("/", home)
 	e.GET("/addproject", addProject)
 	e.GET("/contact", contact)
 	e.GET("detailproject/:id", detailProject)
 	e.GET("updateproject/:id", updateProject)
 
+	// mengirim data
 	e.POST("/addblog", addBlog)
 	e.POST("/deleteblog/:id", deleteBlog)
 	e.POST("/updateproject/:id", updateProjectDone)
 
 	e.Logger.Fatal(e.Start("localhost:5000"))
 }
-
-// func hellowordl(c echo.Context) error {
-// 	return c.String(http.StatusOK, "Hello Wordl")
-// }
 
 func home(c echo.Context) error {
 	var tmpl, err = template.ParseFiles("views/index.html")
@@ -117,12 +108,6 @@ func contact(c echo.Context) error {
 func detailProject(c echo.Context) error {
 	id, _ := strconv.Atoi(c.Param("id"))
 
-	// data := map[string]interface{}{
-	// 	"id":      id,
-	// 	"Title":   "DumbWays Web App",
-	// 	"Content": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Temporibus dignissimos eum sit voluptatum suscipit. Sequi dolorem, ipsa dolores, optio quod officiis quisquam, atque nihil omnis magnam quia tempora minus doloribus tempore et laboriosam voluptates. Mollitia beatae at officia quisquam placeat delectus, cumque ipsum facilis pariatur praesentium aliquid quo eaque fugiat nisi atque corporis sequi. Alias unde nihil maiores earum sint soluta repellat quasi nisi numquam quia, illum et molestias eum, hic voluptates delectus possimus accusantium temporibus dolorem qui tempora animi odio quo! Quaerat accusantium numquam quibusdam, ratione quod cumque culpa totam, eaque alias obcaecati mollitia earum! Porro aspernatur similique itaque. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Exercitationem, delectus quisquam. Atque, iusto. Error impedit nemo voluptate quis ea enim esse, commodi aliquam ex ipsam debitis veritatis libero quasi autem dolor natus dolorem hic magni magnam, asperiores molestias incidunt odit eaque doloremque! Est alias repellendus ex libero consectetur adipisci similique, ipsa earum, fugit laboriosam et dolorum sunt facere ad accusamus nemo tempore distinctio odio! Accusamus rem veniam, nobis eveniet ipsam molestias dicta ut. Pariatur accusamus accusantium vel sunt illum alias cum, est incidunt perspiciatis animi? Ipsum esse accusantium soluta, incidunt voluptate, optio ratione expedita consequuntur natus quos velit enim itaque!",
-	// }
-
 	var detailProject = Blog{}
 
 	// for melakukan perulangan
@@ -142,8 +127,6 @@ func detailProject(c echo.Context) error {
 				Html:        data.Html,
 				Php:         data.Php,
 				React:       data.React,
-				// Author:      data.Author,
-				// PostDate:    data.PostDate,
 			}
 		}
 	}
@@ -192,8 +175,6 @@ func addBlog(c echo.Context) error {
 		Html:        (html == "html"),
 		Php:         (php == "php"),
 		React:       (react == "react"),
-		// Author:      "Arsandi Wira P",
-		// PostDate:    time.Now().String(),
 	}
 
 	// append bertugas untuk menambahakan data newBlog ke dalam slice dataBlog
@@ -235,8 +216,6 @@ func updateProject(c echo.Context) error {
 				Html:        data.Html,
 				Php:         data.Php,
 				React:       data.React,
-				// Author:      data.Author,
-				// PostDate:    data.PostDate,
 			}
 		}
 	}
@@ -289,8 +268,6 @@ func updateProjectDone(c echo.Context) error {
 		Html:        (html == "html"),
 		Php:         (php == "php"),
 		React:       (react == "react"),
-		// Author:      "Arsandi Wira P",
-		// PostDate:    time.Now().String(),
 	}
 
 	dataBlog[id] = updateProject

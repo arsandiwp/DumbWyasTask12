@@ -55,12 +55,28 @@
           <h3>Technologies</h3>
           <div class="row">
             <div class="col">
-              <p><i class="fa-brands fa-js fa-xl"></i> {{.Blog.JavaScript}}</p>
-              <p><i class="fa-brands fa-php fa-xl"></i> {{.Blog.Php}}</p>
+              <p>
+                {{if .Blog.JavaScript}}
+                <i class="fa-brands fa-js fa-xl"></i> JavaScript
+                {{end}}
+              </p>
+              <p>
+                {{if .Blog.Html}}
+                <i class="fa-brands fa-html5 fa-xl"></i> HTML
+                {{end}}
+              </p>
             </div>
             <div class="col-7">
-              <p><i class="fa-brands fa-html5 fa-xl"></i> HTML</p>
-              <p><i class="fa-brands fa-react fa-xl"></i> React</p>
+              <p>
+                {{if .Blog.Php}}
+                <i class="fa-brands fa-php fa-xl"></i> PHP 
+                {{end}}
+              </p>
+              <p>
+                {{if .Blog.React}}
+                <i class="fa-brands fa-react fa-xl"></i> React
+                {{end}}
+              </p>
             </div>
           </div>
         </div>
